@@ -11,22 +11,34 @@ namespace NoteApp
     {
         static void Main(string[] args)
         {
-            while (true)
+          
+            while(Console.ReadLine().ToLower() != "quit")
+            Console.Write("Title: ");
+            string title = Console.ReadLine();
+            Console.Write("Body: ");
+            string body = Console.ReadLine();
+            if (title && body)
             {
+                sendInputBySQL(title, body);
+            }
+            
+            
+        }
 
-
-                var context = new ConsoleEntries();
-                var post = new Model.Post() {
-                   Title = Console.ReadLine(),
-                   Body = Console.ReadLine(),
-                   DateWritten = DateTime.Now
-                };
-                context.Posts.Add(post);
-                context.SaveChanges();
-                foreach (var entry in context.Posts)
-                {
-                    Console.WriteLine(entry.Title + " " + entry.Body + "\n" + entry.DateWritten);
-                }
+        public void sendInputBySQL(String title, String body)
+        {
+            var context = new ConsoleEntries();
+            var post = new Model.Post()
+            {
+                Title = title,
+                Body = body,
+                DateWritten = DateTime.Now
+            };
+            context.Posts.Add(post);
+            context.SaveChanges();
+            foreach (var entry in context.Posts)
+            {
+                Console.WriteLine(entry.Title + " " + entry.Body + "\n" + entry.DateWritten);
             }
         }
     }
